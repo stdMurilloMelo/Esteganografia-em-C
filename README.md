@@ -43,6 +43,7 @@ A esteganografia é uma técnica utilizada para ocultar dados dentro de outros a
 Para ocultar dados em uma imagem (arquivo de saída é opcional por padrão é gerado um arquivo chamado "output.png"):
 ```sh
 ./<NomeDoPrograma> -e <arquivo_png> <messagem|arquivo_texto> [<arquivo_saida_png>]
+```
 
 Para extrair dados de uma imagem (arquivo de saída é opcional por padrão a messagem é printada no terminal):
 ```sh
