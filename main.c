@@ -1,4 +1,5 @@
 /*
+Ciências da Computação (UFG)
 Murillo Pires Teixeira Melo (202300074)
 Trabalho sobre Esteganografia (AED2) 2024.1
 Prof.: Ronaldo Martins da Costa
