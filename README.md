@@ -8,9 +8,6 @@ Este projeto implementa uma técnica de esteganografia em imagens PNG utilizando
 - [Requisitos](#requisitos)
 - [Instalação](#instalação)
 - [Uso](#uso)
-- [Exemplos](#exemplos)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
 
 ## Descrição
 
@@ -48,3 +45,4 @@ Para ocultar dados em uma imagem (arquivo de saída é opcional por padrão é g
 Para extrair dados de uma imagem (arquivo de saída é opcional por padrão a messagem é printada no terminal):
 ```sh
 ./<NomeDoPrograma> -d <arquivo_png> [<arquivo_saida_texto>]
+```
