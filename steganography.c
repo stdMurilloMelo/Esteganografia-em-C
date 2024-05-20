@@ -59,7 +59,7 @@ void read_png_file(char *file_name, png_structp png, png_infop info,
         png_read_update_info(png, info);
     }
 
-    int height = png_get_image_height(png, info);
+    unsigned int height = png_get_image_height(png, info);
     *row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * height);
     if (!*row_pointers) {
         fprintf(stderr, "Falha ao alocar memória para os ponteiros para as "
@@ -67,7 +67,7 @@ void read_png_file(char *file_name, png_structp png, png_infop info,
         abort();
     }
 
-    for (int y = 0; y < height; y++) {
+    for (unsigned int y = 0; y < height; y++) {
         (*row_pointers)[y] = (png_byte *)malloc(png_get_rowbytes(png, info));
         if (!(*row_pointers)[y]) {
             fprintf(stderr, "Falha ao alocar memória para a linha %d.\n", y);
@@ -110,7 +110,7 @@ void encode_message(png_bytep *byte, char *message, unsigned int message_length,
                 "A mensagem é muito grande para ser codificada na imagem.\n");
         abort();
     }
-    int i = 0, j = 0, num_bits_msg_len = 32;
+    unsigned int i = 0, j = 0, num_bits_msg_len = 32;
     while (num_bits_msg_len--) {
         byte[i][j] =
             (byte[i][j] & 0xFE) | ((message_length >> num_bits_msg_len) & 0x01);
@@ -135,8 +135,8 @@ void encode_message(png_bytep *byte, char *message, unsigned int message_length,
 // Função para decodificar a mensagem
 DecodedMessage decode_message(png_bytep *byte, char *message,
                               unsigned int width, unsigned int height) {
-    int message_length = 0;
-    int i = 0, j = 0, num_bits_msg_len = 32;
+    unsigned int message_length = 0;
+    unsigned int i = 0, j = 0, num_bits_msg_len = 32;
     while (num_bits_msg_len--) {
         message_length = (message_length << 1) | (byte[i][j] & 0x01);
         j++;
