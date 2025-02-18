@@ -36,11 +36,12 @@ clang (ou gcc) -o NomeDoPrograma *.c -lpng
 #include "steganography.h"
 
 // Função principal
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
 
     // Cria a estrutura de leitura do arquivo PNG
     png_structp png =
         png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
     if (!png) {
         fprintf(stderr, "Falha ao criar a estrutura de leitura do PNG.\n");
         return 1;
@@ -48,6 +49,7 @@ int main(int argc, char **argv) {
 
     // Cria a estrutura de informações do arquivo PNG
     png_infop info = png_create_info_struct(png);
+
     if (!info) {
         fprintf(stderr, "Falha ao criar a estrutura de informações do PNG.\n");
         png_destroy_read_struct(&png, NULL, NULL);
@@ -62,7 +64,7 @@ int main(int argc, char **argv) {
     }
 
     // Ponteiro para as linhas da imagem
-    png_bytep *png_pixel_bytes;
+    png_bytep* png_pixel_bytes;
 
     // Lê o arquivo PNG
     read_png_file(argv[2], png, info, &png_pixel_bytes);
@@ -71,11 +73,11 @@ int main(int argc, char **argv) {
 
     // Verifica se a opção é de codificação
     if (strcmp(argv[1], "-e") == 0) {
-        char *message;
+        char* message;
         unsigned int message_length;
 
         // Verifica se o terceiro argumento é um arquivo de texto
-        FILE *test_file = fopen(argv[3], "r");
+        FILE* test_file = fopen(argv[3], "r");
         if (test_file) {
             fclose(test_file);
             message = read_text_file(argv[3]);
@@ -106,7 +108,7 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-        char *output_file = argc > 4 ? argv[4] : "output.png";
+        char* output_file = argc > 4 ? argv[4] : "output.png";
         write_png_file(output_file, png_out, info, png_pixel_bytes);
 
         printf("Tamanho da mensagem: %d\nMensagem codificada com sucesso!\n",
@@ -120,7 +122,7 @@ int main(int argc, char **argv) {
     // Verifica se a opção é de decodificação
     else if (strcmp(argv[1], "-d") == 0) {
         unsigned int height = png_get_image_height(png, info);
-        char *decoded_message = NULL;
+        char* decoded_message = NULL;
         unsigned int message_length = 0;
 
         // Decodifica a mensagem das linhas da imagem
