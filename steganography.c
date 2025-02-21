@@ -1,8 +1,8 @@
 #include "steganography.h"
 
 // Função para ler o arquivo de texto
-char* read_text_file(const char* filename) {
-    FILE* file = fopen(filename, "r");
+char *read_text_file(const char *filename) {
+    FILE *file = fopen(filename, "r");
     if (!file) {
         fprintf(stderr, "Erro ao abrir o arquivo de texto.\n");
         return NULL;
@@ -12,7 +12,7 @@ char* read_text_file(const char* filename) {
     long file_size = ftell(file);
     rewind(file);
 
-    char* content = (char*)malloc((file_size + 1) * sizeof(char));
+    char *content = (char *)malloc((file_size + 1) * sizeof(char));
     if (!content) {
         fprintf(stderr, "Erro ao alocar memória para o conteúdo do arquivo.\n");
         fclose(file);
@@ -27,8 +27,8 @@ char* read_text_file(const char* filename) {
 }
 
 // Função para escrever o arquivo de texto
-void write_text_file(const char* filename, const char* content) {
-    FILE* file = fopen(filename, "w");
+void write_text_file(const char *filename, const char *content) {
+    FILE *file = fopen(filename, "w");
     if (!file) {
         fprintf(stderr, "Erro ao abrir o arquivo de saída.\n");
         return;
@@ -39,9 +39,9 @@ void write_text_file(const char* filename, const char* content) {
 }
 
 // Função para ler o arquivo PNG
-void read_png_file(char* file_name, png_structp png, png_infop info,
-                   png_bytep** row_pointers) {
-    FILE* fp = fopen(file_name, "rb");
+void read_png_file(char *file_name, png_structp png, png_infop info,
+                   png_bytep **row_pointers) {
+    FILE *fp = fopen(file_name, "rb");
     if (!fp) {
         fprintf(stderr, "Falha ao abrir o arquivo %s para leitura.\n",
                 file_name);
@@ -60,7 +60,7 @@ void read_png_file(char* file_name, png_structp png, png_infop info,
     }
 
     unsigned int height = png_get_image_height(png, info);
-    *row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * height);
+    *row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * height);
     if (!*row_pointers) {
         fprintf(stderr, "Falha ao alocar memória para os ponteiros para as "
                         "linhas do arquivo.\n");
@@ -68,7 +68,7 @@ void read_png_file(char* file_name, png_structp png, png_infop info,
     }
 
     for (unsigned int y = 0; y < height; y++) {
-        (*row_pointers)[y] = (png_byte*)malloc(png_get_rowbytes(png, info));
+        (*row_pointers)[y] = (png_byte *)malloc(png_get_rowbytes(png, info));
         if (!(*row_pointers)[y]) {
             fprintf(stderr, "Falha ao alocar memória para a linha %d.\n", y);
             abort();
@@ -80,9 +80,9 @@ void read_png_file(char* file_name, png_structp png, png_infop info,
 }
 
 // Função para escrever o arquivo PNG
-void write_png_file(char* file_name, png_structp png, png_infop info,
-                    png_bytep* row_pointers) {
-    FILE* fp = fopen(file_name, "wb");
+void write_png_file(char *file_name, png_structp png, png_infop info,
+                    png_bytep *row_pointers) {
+    FILE *fp = fopen(file_name, "wb");
     if (!fp) {
         fprintf(stderr, "Falha ao abrir o arquivo %s para escrita.\n",
                 file_name);
@@ -103,7 +103,7 @@ void write_png_file(char* file_name, png_structp png, png_infop info,
 }
 
 // Função para codificar a mensagem
-void encode_message(png_bytep* byte, char* message, unsigned int message_length,
+void encode_message(png_bytep *byte, char *message, unsigned int message_length,
                     unsigned int width, unsigned int height) {
     if (message_length > (height * width - 32)) {
         fprintf(stderr,
@@ -133,7 +133,7 @@ void encode_message(png_bytep* byte, char* message, unsigned int message_length,
 }
 
 // Função para decodificar a mensagem
-DecodedMessage decode_message(png_bytep* byte, char* message,
+DecodedMessage decode_message(png_bytep *byte, char *message,
                               unsigned int width, unsigned int height) {
     unsigned int message_length = 0;
     unsigned int i = 0, j = 0, num_bits_msg_len = 32;
@@ -146,7 +146,7 @@ DecodedMessage decode_message(png_bytep* byte, char* message,
         }
     }
 
-    message = (char*)malloc(sizeof(char) * (message_length + 1));
+    message = (char *)malloc(sizeof(char) * (message_length + 1));
     if (!message) {
         fprintf(stderr, "Falha ao alocar memória para a mensagem.\n");
         abort();
